@@ -8,7 +8,7 @@ In your `pubspec.yaml` file within your Flutter Project:
 
 ```yaml
 dependencies:
-  add_2_calendar: ^1.3.1
+  add_2_calendar: ^1.2.2
 ```
 
 ### iOS integration
@@ -17,8 +17,6 @@ In order to make this plugin work on iOS 10+, be sure to add this to your `info.
 
 ```xml
 <key>NSCalendarsUsageDescription</key>
-<string>INSERT_REASON_HERE</string>
-<key>NSContactsUsageDescription</key>
 <string>INSERT_REASON_HERE</string>
 ```
 
@@ -38,8 +36,6 @@ final Event event = Event(
 Add2Calendar.addEvent2Cal(event);
 ...
 ```
-
-Note: See [DateTime docs](https://api.flutter.dev/flutter/dart-core/DateTime-class.html) to know what valid date could be correct in above piece of code.
 
 ## Example
 

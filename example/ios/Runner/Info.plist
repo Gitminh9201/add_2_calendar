@@ -43,7 +43,5 @@
 	<false/>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Create events</string>
-	<key>NSContactsUsageDescription</key>
-    <string>Add people to event</string>
 </dict>
 </plist>
