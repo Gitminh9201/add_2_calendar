@@ -12,6 +12,8 @@ import android.net.Uri;
 import android.provider.CalendarContract;
 import android.util.Log;
 
+import java.util.TimeZone;
+
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -58,19 +60,6 @@ public class Add2CalendarPlugin implements MethodCallHandler {
     @SuppressLint("NewApi")
     public int insert(int id, String title, String desc, String loc, long start, long end, boolean allDay) {
         Context context = getActiveContext();
-//        Intent intent = new Intent(Intent.ACTION_INSERT, CalendarContract.Events.CONTENT_URI);
-//        intent.putExtra(CalendarContract.Events._ID, id);
-//        intent.putExtra(CalendarContract.Events.CALENDAR_ID, id);
-//        intent.putExtra(CalendarContract.Events.TITLE, title);
-//        intent.putExtra(CalendarContract.Events.DESCRIPTION, desc);
-//        intent.putExtra(CalendarContract.Events.EVENT_LOCATION, loc);
-//        intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, start);
-//        intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, end);
-//        intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, allDay);
-//       context.startActivity(intent);
-//            int calId = tryParse(CalendarContract.Events._ID);
-//
-//       return calId;
         ContentResolver cr = context.getContentResolver();
         ContentValues values = new ContentValues();
         values.put(CalendarContract.Events.DTSTART, start);
@@ -79,8 +68,8 @@ public class Add2CalendarPlugin implements MethodCallHandler {
         values.put(CalendarContract.Events.ALL_DAY, allDay);
         values.put(CalendarContract.Events.DESCRIPTION, desc);
         values.put(CalendarContract.Events.EVENT_LOCATION, loc);
-        values.put(CalendarContract.Events.CALENDAR_ID, 1);
-        values.put(CalendarContract.Events.EVENT_TIMEZONE, "Europe/Amsterdam");
+        values.put(CalendarContract.Events.CALENDAR_ID, id);
+        values.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().getID());
             Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
 
             // get the event ID that is the last element in the Uri
@@ -103,7 +92,7 @@ public class Add2CalendarPlugin implements MethodCallHandler {
 //        intent.putExtra(CalendarContract.Events.CALENDAR_ID, id);
 //        context.startActivity(intent);
         ContentValues event = new ContentValues();
-        event.put(CalendarContract.Events.DELETED, 1);
+        event.put(CalendarContract.Events.DELETED, id);
         Uri eventUri = ContentUris
                 .withAppendedId(CalendarContract.Events.CONTENT_URI, id);
         int rows = context.getContentResolver().delete(eventUri, null, null);
